@@ -1,5 +1,5 @@
 start-dev:
-	@docker-compose -f ./dev-script/docker-compose.yml up --build
+	@docker-compose -f ./dev-script/docker-compose.yml up
 	
 stop-dev:
 	@docker-compose -f ./dev-script/docker-compose.yml down
