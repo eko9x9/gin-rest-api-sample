@@ -13,6 +13,6 @@ func main() {
 		log.Fatalf("Failed to load env: %v", err)
 	}
 
-	server := &app.Routes{}
+	server := new(app.App)
 	server.StartServer()
 }
