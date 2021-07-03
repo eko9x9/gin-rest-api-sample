@@ -1,0 +1,44 @@
+version: "3.9"
+services: 
+
+  gin-api-sample-dev:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: gin-api-sample-dev
+    ports: 
+      - "3000:3000"
+    volumes: 
+        - ../:/app
+    restart: on-failure
+    depends_on: 
+      - postgres
+    networks: 
+      - default
+
+  postgres:
+    image: postgres
+    container_name: postgres
+    restart: always
+    ports: 
+      - "5432:5432"
+    environment:
+      TZ: "Asia/Jakarta"
+      PGTZ: "Asia/Jakarta"
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: sample_api
+    volumes: 
+      - type: volume
+        source: local
+        target: /var/lib/postgresql/data
+    networks: 
+      - default
+
+volumes: 
+  local:
+    driver: local
+
+networks: 
+  default:
+    driver: bridge
