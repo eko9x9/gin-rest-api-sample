@@ -11,27 +11,6 @@ services:
     volumes: 
         - ../:/app
     restart: on-failure
-    depends_on: 
-      - postgres
-    networks: 
-      - default
-
-  postgres:
-    image: postgres
-    container_name: postgres
-    restart: always
-    ports: 
-      - "5432:5432"
-    environment:
-      TZ: "Asia/Jakarta"
-      PGTZ: "Asia/Jakarta"
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: sample_api
-    volumes: 
-      - type: volume
-        source: local
-        target: /var/lib/postgresql/data
     networks: 
       - default
 
