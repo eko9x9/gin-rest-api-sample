@@ -1,8 +1,10 @@
 package utils
 
 import (
+	"log"
 	"time"
 
+	"github.com/eko9x9/gin-rest-api-sample/config"
 	"github.com/golang-jwt/jwt"
 )
 
@@ -20,10 +22,14 @@ type UserInfo struct {
 }
 
 func (j *JwtUtils) VerifyToken(token string) (jwt.Claims, error) {
+	key, err := config.GetKey()
+	if err != nil {
+		log.Fatalf("Error get key of jwt: %v", err)
+	}
 
 	userClaim, err := at(time.Unix(0, 0), func() (jwt.Claims, error) {
 		token, err := jwt.ParseWithClaims(token, &UserClaim{}, func(token *jwt.Token) (interface{}, error) {
-			return []byte("AllYourBase"), nil
+			return key, nil
 		})
 		claims, _ := token.Claims.(*UserClaim)
 		// if token.Valid && ok {
@@ -46,7 +52,10 @@ func at(t time.Time, f func() (jwt.Claims, error)) (jwt.Claims, error) {
 }
 
 func (j *JwtUtils) GenerateToken(user *UserInfo) (string, error) {
-	mySigningKey := []byte("AllYourBase")
+	key, err := config.GetKey()
+	if err != nil {
+		log.Fatalf("Error get key of jwt: %v", err)
+	}
 
 	claims := UserClaim{
 		*user,
@@ -57,7 +66,7 @@ func (j *JwtUtils) GenerateToken(user *UserInfo) (string, error) {
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	ss, err := token.SignedString(mySigningKey)
+	ss, err := token.SignedString(key)
 
 	return ss, err
 }
