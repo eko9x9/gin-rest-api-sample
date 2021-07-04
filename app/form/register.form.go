@@ -1,7 +1,7 @@
 package form
 
 type RegisterRequestBody struct {
-	DisplayName string `json:"name" validate:"required"`
-	Username    string `json:"username" validate:"required"`
-	Password    string `json:"password" validate:"required"`
+	DisplayName string `json:"name" binding:"required" validate:"required"`
+	Username    string `json:"username" binding:"required" validate:"required"`
+	Password    string `json:"password" binding:"required" validate:"required"`
 }

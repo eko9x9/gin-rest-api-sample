@@ -1,0 +1,21 @@
+### Register
+POST http://localhost:3000/api/v1.0/auth/register
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name": "Nono",
+    "username": "nono",
+    "password": "secret123"
+}
+
+### Login
+POST http://localhost:3000/api/v1.0/auth/login
+Content-Type: application/json
+Accept: application/json
+Authorization: "Bearer sjsjsjsj"
+
+{
+    "username": "nono",
+    "password": "secret123"
+}
