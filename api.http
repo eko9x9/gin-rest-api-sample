@@ -4,7 +4,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-    "name": "Nono",
+    "name": "Nonos",
     "username": "nono",
     "password": "secret123"
 }
@@ -19,3 +19,7 @@ Authorization: "Bearer sjsjsjsj"
     "username": "nono",
     "password": "secret123"
 }
+
+### Get Profile
+GET http://localhost:3000/api/v1.0/user/profile HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTm9ub3MiLCJ1c2VybmFtZSI6Im5vbm8iLCJleHAiOjE1MDAwLCJpc3MiOiJ0ZXN0In0.BxXrGhBPjoHbjFCN384-fyUpB6BF0Zww7rDAcgwCiY8

@@ -6,7 +6,7 @@ import (
 )
 
 func ApplyAuthRoutes(r *gin.RouterGroup) {
-	auth := r.Group("auth")
+	auth := r.Group("/auth")
 
 	authController := new(controllers.AuthController)
 

@@ -25,7 +25,6 @@ func (app *App) StartServer() {
 
 	r.Use(database.Inject(db))
 	r.Use(gin.Logger())
-	// r.Use(middlewares.JwtMiddleware())
 
 	apiRoutes := new(routes.ApiRoutes)
 	apiRoutes.ApplyRoutes(r)

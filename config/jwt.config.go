@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func GetKey() ([]byte, error) {
+func GetJwtKey() ([]byte, error) {
 	pwd, _ := os.Getwd()
 
 	keyPath := pwd + "/config/secret/jwt.key"

@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"fmt"
 	"log"
 	"time"
 
@@ -21,8 +22,8 @@ type UserInfo struct {
 	Username string `json:"username"`
 }
 
-func (j *JwtUtils) VerifyToken(token string) (jwt.Claims, error) {
-	key, err := config.GetKey()
+func (j *JwtUtils) ValidateToken(token string) (jwt.Claims, error) {
+	key, err := config.GetJwtKey()
 	if err != nil {
 		log.Fatalf("Error get key of jwt: %v", err)
 	}
@@ -31,10 +32,11 @@ func (j *JwtUtils) VerifyToken(token string) (jwt.Claims, error) {
 		token, err := jwt.ParseWithClaims(token, &UserClaim{}, func(token *jwt.Token) (interface{}, error) {
 			return key, nil
 		})
-		claims, _ := token.Claims.(*UserClaim)
-		// if token.Valid && ok {
-		// 	return claims, err
-		// }
+		claims, ok := token.Claims.(*UserClaim)
+
+		if !token.Valid || !ok {
+			fmt.Println(token.Valid, ok)
+		}
 		return claims, err
 	})
 
@@ -52,7 +54,7 @@ func at(t time.Time, f func() (jwt.Claims, error)) (jwt.Claims, error) {
 }
 
 func (j *JwtUtils) GenerateToken(user *UserInfo) (string, error) {
-	key, err := config.GetKey()
+	key, err := config.GetJwtKey()
 	if err != nil {
 		log.Fatalf("Error get key of jwt: %v", err)
 	}
@@ -70,3 +72,11 @@ func (j *JwtUtils) GenerateToken(user *UserInfo) (string, error) {
 
 	return ss, err
 }
+
+type JwtUserRoles int
+
+const (
+	Admin JwtUserRoles = iota + 1
+	User
+	None
+)
