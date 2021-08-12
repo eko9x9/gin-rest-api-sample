@@ -11,9 +11,9 @@ var model models.Model
 
 func Migrate(db *gorm.DB) {
 
-	if db.Migrator().HasTable(model.User) {
-		db.Migrator().DropTable(model.User)
-	}
+	// if db.Migrator().HasTable(model.User) {
+	// 	db.Migrator().DropTable(model.User)
+	// }
 	defer RunMigrate(db)
 
 }
